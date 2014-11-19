@@ -1,0 +1,18 @@
+{
+  "framework": "mocha",
+  "src_files": [
+    "node_modules/chai/chai.js",
+    "lib/*",
+    "test/setup.js",
+    "test/*_test.js"
+  ],
+  "launchers": {
+    "node": {
+      "command": "pegjs lib/grammar.pegjs lib/parser.js && ./node_modules/.bin/mocha -r test/setup.js -R tap test/*_test.js",
+      "protocol": "tap"
+    }
+  },
+  "launch_in_dev": [
+    "node"
+  ]
+}

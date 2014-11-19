@@ -1,0 +1,18 @@
+{
+  "name": "hbars",
+  "version": "0.0.1",
+  "description": "A Haml implementation for Handlebars/HTMLBars",
+  "main": "hbars.js",
+  "scripts": {
+    "test": "./node_modules/.bin/testem"
+  },
+  "author": "Chase McCarthy",
+  "license": "ISC",
+  "devDependencies": {
+    "broccoli-compile-modules": "^1.1.0",
+    "chai": "^1.10.0",
+    "mocha": "^2.0.1",
+    "pegjs": "^0.8.0",
+    "sinon": "^1.12.1"
+  }
+}
