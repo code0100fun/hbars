@@ -1,13 +1,18 @@
+var Preprocessor = require('../lib/preprocessor');
 var Parser = require('../lib/parser');
+
+function parse(haml) {
+  return Parser.parse(Preprocessor.parse(haml));
+}
 
 describe('parser', function () {
   it('parses tags', function () {
-    var ast = Parser.parse('%p');
+    var ast = parse('%p');
     expect(ast).to.deep.equal([{ type: "element", tag: "p" }]);
   });
 
   it('parses classes on elements', function () {
-    var ast = Parser.parse('%p.foo.bar');
+    var ast = parse('%p.foo.bar');
     expect(ast).to.deep.equal([
       {
         type: "element",
@@ -20,7 +25,7 @@ describe('parser', function () {
   });
 
   it('parses id on element', function () {
-    var ast = Parser.parse('%p#baz');
+    var ast = parse('%p#baz');
     expect(ast).to.deep.equal([
       {
         type: "element",
@@ -33,7 +38,7 @@ describe('parser', function () {
   });
 
   it('parses id and classes on element', function () {
-    var ast = Parser.parse('%p.foo#baz.bar');
+    var ast = parse('%p.foo#baz.bar');
     expect(ast).to.deep.equal([
       {
         type: "element",
@@ -47,7 +52,7 @@ describe('parser', function () {
   });
 
   it('defaults element to div if no tag is givin', function () {
-    var ast = Parser.parse('.foo#baz.bar');
+    var ast = parse('.foo#baz.bar');
     expect(ast).to.deep.equal([
       {
         type: "element",
@@ -61,7 +66,7 @@ describe('parser', function () {
   });
 
   it('multiple elements', function () {
-    var ast = Parser.parse('.foo\n.bar\n%a.baz');
+    var ast = parse('.foo\n.bar\n%a.baz');
     expect(ast).to.deep.equal([
       {
         type: "element",
@@ -86,4 +91,5 @@ describe('parser', function () {
       }
     ]);
   });
+
 });
