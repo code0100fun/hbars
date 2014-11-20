@@ -3,14 +3,14 @@ var Parser = require('../lib/parser');
 describe('parser', function () {
   it('parses tags', function () {
     var ast = Parser.parse('%p');
-    expect(ast).to.deep.equal([{ type: "Element", tag: "p" }]);
+    expect(ast).to.deep.equal([{ type: "element", tag: "p" }]);
   });
 
   it('parses classes on elements', function () {
     var ast = Parser.parse('%p.foo.bar');
     expect(ast).to.deep.equal([
       {
-        type: "Element",
+        type: "element",
         tag: "p",
         attributes: {
           class : ['foo', 'bar']
@@ -23,7 +23,7 @@ describe('parser', function () {
     var ast = Parser.parse('%p#baz');
     expect(ast).to.deep.equal([
       {
-        type: "Element",
+        type: "element",
         tag: "p",
         attributes: {
           id : 'baz'
@@ -36,7 +36,7 @@ describe('parser', function () {
     var ast = Parser.parse('%p.foo#baz.bar');
     expect(ast).to.deep.equal([
       {
-        type: "Element",
+        type: "element",
         tag: "p",
         attributes: {
           id : 'baz',
@@ -50,7 +50,7 @@ describe('parser', function () {
     var ast = Parser.parse('.foo#baz.bar');
     expect(ast).to.deep.equal([
       {
-        type: "Element",
+        type: "element",
         tag: "div",
         attributes: {
           id : 'baz',
@@ -62,24 +62,23 @@ describe('parser', function () {
 
   it('multiple elements', function () {
     var ast = Parser.parse('.foo\n.bar\n%a.baz');
-    console.log(ast);
     expect(ast).to.deep.equal([
       {
-        type: "Element",
+        type: "element",
         tag: "div",
         attributes: {
           class : 'foo'
         },
       },
       {
-        type: "Element",
+        type: "element",
         tag: "div",
         attributes: {
           class : 'bar'
         },
       },
       {
-        type: "Element",
+        type: "element",
         tag: "a",
         attributes: {
           class : 'baz'
