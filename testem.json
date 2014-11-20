@@ -8,7 +8,7 @@
   ],
   "launchers": {
     "node": {
-      "command": "pegjs lib/grammar.pegjs lib/parser.js && ./node_modules/.bin/mocha -r test/setup.js -R tap test/*_test.js",
+      "command": "pegjs lib/preprocessor.pegjs lib/preprocessor.js && pegjs lib/grammar.pegjs lib/parser.js && ./node_modules/.bin/mocha -r test/setup.js -R tap test/*_test.js",
       "protocol": "tap"
     }
   },
