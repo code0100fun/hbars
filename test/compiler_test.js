@@ -10,4 +10,10 @@ describe('compiler', function () {
     var template = Compiler.compile('%p\n  %a');
     expect(template).to.equal('<p>\n  <a></a>\n</p>');
   });
+
+  it('compiles nested helpers', function () {
+    var template = Compiler.compile('%p\n\t- each things\n\t\t%p');
+    expect(template).to.equal('<p>\n  {{#each things}}\n    <p></p>\n  {{/each}}\n</p>');
+  });
+
 });

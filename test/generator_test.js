@@ -92,4 +92,28 @@ describe('generator', function () {
     expect(template).to.equal('<p>\n  <a></a>\n</p>');
   });
 
+  it('generates nested helpers', function () {
+    var ast = [
+      {
+        type: "element",
+        tag: "p",
+        nodes: [
+          {
+            type: "helper",
+            name: "each",
+            content: "things",
+            nodes: [
+              {
+                type: "element",
+                tag: "p",
+              }
+            ]
+          },
+        ]
+      }
+    ];
+    var template = Generator.generate(ast);
+    expect(template).to.equal('<p>\n  {{#each things}}\n    <p></p>\n  {{/each}}\n</p>');
+  });
+
 });

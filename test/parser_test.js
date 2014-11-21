@@ -114,4 +114,34 @@ describe('parser', function () {
     ]);
   });
 
+  it('block helpers', function () {
+    var ast = parse('.foo\n\t- each things\n\t\t.qux');
+    expect(ast).to.deep.equal([
+      {
+        type: "element",
+        tag: "div",
+        attributes: {
+          class : 'foo'
+        },
+        nodes: [
+          {
+            type: "helper",
+            name: "each",
+            content: "things",
+            nodes: [
+              {
+                type: "element",
+                tag: "div",
+                attributes: {
+                  class : 'qux'
+                }
+              }
+            ]
+          },
+        ]
+      }
+    ]);
+  });
+
+
 });
