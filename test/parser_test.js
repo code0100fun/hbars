@@ -143,5 +143,20 @@ describe('parser', function () {
     ]);
   });
 
+  it('mustache expression', function () {
+    var ast = parse('%p\n\t= name');
+    expect(ast).to.deep.equal([
+      {
+        type: "element",
+        tag: "p",
+        nodes: [
+          {
+            type: "expression",
+            content: "name",
+          }
+        ]
+      }
+    ]);
+  });
 
 });

@@ -116,4 +116,21 @@ describe('generator', function () {
     expect(template).to.equal('<p>\n  {{#each things}}\n    <p></p>\n  {{/each}}\n</p>');
   });
 
+  it('generates mustache expression', function () {
+    var ast = [
+      {
+        type: "element",
+        tag: "p",
+        nodes: [
+          {
+            type: "expression",
+            content: "name",
+          }
+        ]
+      }
+    ];
+    var template = Generator.generate(ast);
+    expect(template).to.equal('<p>\n  {{name}}\n</p>');
+  });
+
 });
