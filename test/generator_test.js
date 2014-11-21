@@ -74,4 +74,22 @@ describe('generator', function () {
     var template = Generator.generate(ast);
     expect(template).to.equal('<p id="paragraph" class="foo bar"></p>\n<a id="link" class="baz qux"></a>');
   });
+
+  it('generates nested elements', function () {
+    var ast = [
+      {
+        type: "element",
+        tag: "p",
+        nodes: [
+          {
+            type: "element",
+            tag: "a",
+          }
+        ]
+      },
+    ];
+    var template = Generator.generate(ast);
+    expect(template).to.equal('<p>\n  <a></a>\n</p>');
+  });
+
 });

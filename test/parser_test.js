@@ -92,4 +92,26 @@ describe('parser', function () {
     ]);
   });
 
+  it('nested element', function () {
+    var ast = parse('.foo\n\t.bar');
+    expect(ast).to.deep.equal([
+      {
+        type: "element",
+        tag: "div",
+        attributes: {
+          class : 'foo'
+        },
+        nodes: [
+          {
+            type: "element",
+            tag: "div",
+            attributes: {
+              class : 'bar'
+            }
+          },
+        ]
+      }
+    ]);
+  });
+
 });
