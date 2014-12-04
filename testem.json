@@ -1,18 +1,19 @@
 {
-  "framework": "mocha",
-  "src_files": [
-    "node_modules/chai/chai.js",
-    "lib/*",
-    "test/setup.js",
-    "test/*_test.js"
+  "framework": "mocha+chai",
+  "test_page": "dist/tests/index.html",
+  "serve_files": [
+    "dist/tests/*.js"
   ],
   "launchers": {
     "node": {
-      "command": "pegjs lib/preprocessor.pegjs lib/preprocessor.js && pegjs lib/grammar.pegjs lib/parser.js && ./node_modules/.bin/mocha -r test/setup.js -R tap test/*_test.js",
+      "command": "npm run-script build && export NODE_PATH=./dist/tests/ && ./node_modules/.bin/mocha -r dist/tests/setup_cjs.js -R tap dist/tests/*test.js",
       "protocol": "tap"
     }
   },
+  "launch_in_ci": ["node", "PhantomJS"],
   "launch_in_dev": [
-    "node"
+    "node",
+    "PhantomJS",
+    "Chrome"
   ]
 }

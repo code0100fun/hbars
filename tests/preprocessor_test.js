@@ -1,4 +1,4 @@
-var Preprocessor = require('../lib/preprocessor');
+import { parse as preprocess } from 'preprocessor';
 
 describe('preprocessor', function () {
 
@@ -9,42 +9,42 @@ describe('preprocessor', function () {
   };
 
   it('adds TERM char to last line', function () {
-    var processed = Preprocessor.parse('%p', options);
+    var processed = preprocess('%p', options);
     expect(processed).to.equal('%p.');
   });
 
   it('replaces newline with TERM char', function () {
-    var processed = Preprocessor.parse('%p\n%p', options);
+    var processed = preprocess('%p\n%p', options);
     expect(processed).to.equal('%p.%p.');
   });
 
   it('removes leading newlines', function () {
-    var processed = Preprocessor.parse('\n\n%p', options);
+    var processed = preprocess('\n\n%p', options);
     expect(processed).to.equal('%p.');
   });
 
   it('removes empty trailing lines', function () {
-    var processed = Preprocessor.parse('%p\n\n', options);
+    var processed = preprocess('%p\n\n', options);
     expect(processed).to.equal('%p.');
   });
 
   it('removes empty lines between content', function () {
-    var processed = Preprocessor.parse('%p\n\n\n%p', options);
+    var processed = preprocess('%p\n\n\n%p', options);
     expect(processed).to.equal('%p.%p.');
   });
 
   it('marks 2 space indentation with single INDENT char', function () {
-    var processed = Preprocessor.parse('%p\n  %p', options);
+    var processed = preprocess('%p\n  %p', options);
     expect(processed).to.equal('%p.>%p.<');
   });
 
   it('marks tab indentation with single INDENT char', function () {
-    var processed = Preprocessor.parse('%p\n\t%p', options);
+    var processed = preprocess('%p\n\t%p', options);
     expect(processed).to.equal('%p.>%p.<');
   });
 
   it('handle multiple root level nodes', function () {
-    var processed = Preprocessor.parse('%p\n\t%p\n%a\n%p', options);
+    var processed = preprocess('%p\n\t%p\n%a\n%p', options);
     expect(processed).to.equal('%p.>%p.<%a.%p.');
   });
 

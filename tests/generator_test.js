@@ -1,9 +1,9 @@
-var Generator = require('../lib/generator');
+import { generate } from 'generator';
 
 describe('generator', function () {
   it('creates a tag', function () {
     var ast = [{ type: "element", tag: "p" }];
-    var template = Generator.generate(ast);
+    var template = generate(ast);
     expect(template).to.equal('<p></p>');
   });
 
@@ -12,7 +12,7 @@ describe('generator', function () {
       { type: "element", tag: "p" },
       { type: "element", tag: "p" }
     ];
-    var template = Generator.generate(ast);
+    var template = generate(ast);
     expect(template).to.equal('<p></p>\n<p></p>');
   });
 
@@ -20,7 +20,7 @@ describe('generator', function () {
     var ast = [
       { type: "element", tag: "p", id: "foo" },
     ];
-    var template = Generator.generate(ast);
+    var template = generate(ast);
     expect(template).to.equal('<p id="foo"></p>');
   });
 
@@ -34,7 +34,7 @@ describe('generator', function () {
         }
       },
     ];
-    var template = Generator.generate(ast);
+    var template = generate(ast);
     expect(template).to.equal('<p class="foo"></p>');
   });
 
@@ -48,7 +48,7 @@ describe('generator', function () {
         }
       },
     ];
-    var template = Generator.generate(ast);
+    var template = generate(ast);
     expect(template).to.equal('<p class="foo bar"></p>');
   });
 
@@ -71,7 +71,7 @@ describe('generator', function () {
         }
       },
     ];
-    var template = Generator.generate(ast);
+    var template = generate(ast);
     expect(template).to.equal('<p id="paragraph" class="foo bar"></p>\n<a id="link" class="baz qux"></a>');
   });
 
@@ -88,7 +88,7 @@ describe('generator', function () {
         ]
       },
     ];
-    var template = Generator.generate(ast);
+    var template = generate(ast);
     expect(template).to.equal('<p>\n  <a></a>\n</p>');
   });
 
@@ -112,7 +112,7 @@ describe('generator', function () {
         ]
       }
     ];
-    var template = Generator.generate(ast);
+    var template = generate(ast);
     expect(template).to.equal('<p>\n  {{#each things}}\n    <p></p>\n  {{/each}}\n</p>');
   });
 
@@ -129,7 +129,7 @@ describe('generator', function () {
         ]
       }
     ];
-    var template = Generator.generate(ast);
+    var template = generate(ast);
     expect(template).to.equal('<p>\n  {{name}}\n</p>');
   });
 

@@ -1,0 +1,2 @@
+- Handle more than [a-z] for tags
+- Handle spaces and special characters in mustaches

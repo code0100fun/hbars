@@ -1,8 +1,8 @@
-var Preprocessor = require('../lib/preprocessor');
-var Parser = require('../lib/parser');
+import { parse as preprocess } from 'preprocessor';
+import { parse as parser } from 'parser';
 
 function parse(haml) {
-  return Parser.parse(Preprocessor.parse(haml));
+  return parser(preprocess(haml));
 }
 
 describe('parser', function () {

@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>hbars tests</title>
+    <link rel="stylesheet" href="/testem/mocha.css">
+    <script src="/testem/mocha.js"></script>
+    <script src="/testem.js"></script>
+    <script src="loader.js"></script>
+    <script>
+      mocha.setup('bdd')
+      require.define = define;
+    </script>
+    <script src="hbars-tests.amd.js"></script></head>
+  <body>
+    <div id="mocha"></div>
+    <script>
+      var moduleName, shouldLoad;
+      for (moduleName in requirejs.entries) {
+        shouldLoad = false;
+        if (moduleName.match(/[-_]test$/)) { shouldLoad = true; }
+        if (shouldLoad) { require(moduleName); }
+      }
+      chai = require('chai');
+      expect = chai.expect;
+      mocha.run()
+    </script>
+  </body>
+</html>
