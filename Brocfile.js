@@ -5,7 +5,6 @@ var AMDFormatter = require('es6-module-transpiler-amd-formatter');
 var compileModules = require('broccoli-compile-modules');
 var compileModulesCJS = require('broccoli-es6-module-transpiler');
 var peg = require('broccoli-pegjs');
-var cjsWrap = require('broccoli-cjs-wrap');
 var wrapFiles = require('broccoli-wrap');
 var removeFile = require('broccoli-file-remover');
 
