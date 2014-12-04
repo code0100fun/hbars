@@ -1,9 +1,6 @@
 {
   "framework": "mocha+chai",
   "test_page": "dist/tests/index.html",
-  "serve_files": [
-    "dist/tests/*.js"
-  ],
   "launchers": {
     "node": {
       "command": "npm run-script build && export NODE_PATH=./dist/tests/ && ./node_modules/.bin/mocha -r dist/tests/setup_cjs.js -R tap dist/tests/*test.js",

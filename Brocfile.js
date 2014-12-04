@@ -10,17 +10,10 @@ var wrapFiles = require('broccoli-wrap');
 var removeFile = require('broccoli-file-remover');
 
 var bower = 'bower_components';
-var npm = 'node_modules';
 
 var loader = pickFiles(bower, {
   srcDir: '/loader',
   files: [ 'loader.js' ],
-  destDir: '/tests'
-});
-
-var chai = pickFiles(npm, {
-  srcDir: '/chai',
-  files: [ 'chai.js' ],
   destDir: '/tests'
 });
 
@@ -135,7 +128,7 @@ testsTreeAMD = removeFile(testsTreeAMD, {
   files: ['parser.js', 'preprocessor.js']
 });
 
-testsTreeAMD = concat(mergeTrees([chai, testsTreeAMD, pegFilesAMD]), {
+testsTreeAMD = concat(mergeTrees([testsTreeAMD, pegFilesAMD]), {
   inputFiles: ['**/*.js'],
   outputFile: '/tests/hbars-tests.amd.js'
 });

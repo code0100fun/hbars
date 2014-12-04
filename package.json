@@ -24,7 +24,6 @@
     "broccoli-static-compiler": "^0.2.1",
     "broccoli-string-replace": "0.0.2",
     "broccoli-wrap": "0.0.2",
-    "chai": "^1.10.0",
     "es6-module-transpiler-amd-formatter": "^0.2.4",
     "git-repo-version": "0.0.3",
     "mocha": "^2.0.1",

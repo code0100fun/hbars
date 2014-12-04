@@ -4,6 +4,7 @@
     <title>hbars tests</title>
     <link rel="stylesheet" href="/testem/mocha.css">
     <script src="/testem/mocha.js"></script>
+    <script src="/testem/chai.js"></script>
     <script src="/testem.js"></script>
     <script src="loader.js"></script>
     <script>
@@ -20,7 +21,6 @@
         if (moduleName.match(/[-_]test$/)) { shouldLoad = true; }
         if (shouldLoad) { require(moduleName); }
       }
-      chai = require('chai');
       expect = chai.expect;
       mocha.run()
     </script>
