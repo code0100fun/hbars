@@ -7,8 +7,16 @@ var compileModulesCJS = require('broccoli-es6-module-transpiler');
 var peg = require('broccoli-pegjs');
 var wrapFiles = require('broccoli-wrap');
 var removeFile = require('broccoli-file-remover');
+var jshint = require('broccoli-jshint');
 
 var bower = 'bower_components';
+
+var jshintMocha = function(relativePath, passed, errors) {
+  return "describe('jshint " + relativePath + "', function(){" +
+  "it('" + relativePath + " should pass jshint', function() {\n" +
+  "  assert.ok(" + passed + ", \"" + this.escapeErrorString(errors) + "\");\n" +
+  "});\n});";
+}
 
 var loader = pickFiles(bower, {
   srcDir: '/loader',
@@ -20,6 +28,10 @@ var libTreeES6 = pickFiles('lib', {
   srcDir: '/',
   files: ['*.js'],
   destDir: '/'
+});
+
+var jshintLib = jshint(libTreeES6, {
+  testGenerator: jshintMocha
 });
 
 var pegFiles = pickFiles('lib', {
@@ -79,6 +91,10 @@ var testsTreeES6 = pickFiles('tests', {
   destDir: '/tests'
 });
 
+var jshintTests = jshint(testsTreeES6, {
+  testGenerator: jshintMocha
+});
+
 var libTreeTestES6 = pickFiles(libTreeES6, {
   srcDir: '/',
   files: ['**/*.js'],
@@ -115,7 +131,21 @@ var testsTreeCJS = pickFiles(testsTreeCJS, {
   destDir: '/tests'
 });
 
-testsTreeCJS = mergeTrees([testsTreeCJS, libTreeTestCJS]);
+jshintLib = pickFiles(jshintLib, {
+  srcDir: '/',
+  files: ['**/*'],
+  destDir: '/tests'
+});
+
+var jshintCJS = mergeTrees([jshintLib, jshintTests]);
+
+var testsTreeCJS = pickFiles(testsTreeCJS, {
+  srcDir: '/tests',
+  files: ['*.js'],
+  destDir: '/tests'
+});
+
+testsTreeCJS = mergeTrees([testsTreeCJS, libTreeTestCJS, jshintCJS]);
 
 var testsTreeAMD = compileModules(mergeTrees([libTreeES6, testsTreeES6]), {
   inputFiles: ['**/*.js'],
@@ -127,7 +157,7 @@ testsTreeAMD = removeFile(testsTreeAMD, {
   files: ['parser.js', 'preprocessor.js']
 });
 
-testsTreeAMD = concat(mergeTrees([testsTreeAMD, pegFilesAMD]), {
+testsTreeAMD = concat(mergeTrees([testsTreeAMD, pegFilesAMD, jshintCJS]), {
   inputFiles: ['**/*.js'],
   outputFile: '/tests/hbars-tests.amd.js'
 });

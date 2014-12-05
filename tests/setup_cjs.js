@@ -1,2 +1,4 @@
-expect = require('chai').expect;
+chai = require('chai');
+expect = chai.expect;
+assert = chai.assert;
 isBrowser = false;

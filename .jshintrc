@@ -1,0 +1,11 @@
+{
+  "esnext": true,
+  "undef": true,
+  "unused": true,
+  "predef": [
+    "assert",
+    "expect",
+    "it",
+    "describe"
+  ]
+}

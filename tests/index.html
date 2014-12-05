@@ -9,7 +9,6 @@
     <script src="loader.js"></script>
     <script>
       mocha.setup('bdd')
-      require.define = define;
     </script>
     <script src="hbars-tests.amd.js"></script></head>
   <body>
@@ -19,9 +18,11 @@
       for (moduleName in requirejs.entries) {
         shouldLoad = false;
         if (moduleName.match(/[-_]test$/)) { shouldLoad = true; }
+        if (moduleName.match(/jshint/)) { shouldLoad = true; }
         if (shouldLoad) { require(moduleName); }
       }
       expect = chai.expect;
+      assert = chai.assert;
       mocha.run()
     </script>
   </body>

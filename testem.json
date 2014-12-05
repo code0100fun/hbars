@@ -1,9 +1,13 @@
 {
   "framework": "mocha+chai",
   "test_page": "dist/tests/index.html",
+  "src_files": [
+    "lib/**/*.js",
+    "tests/**/*.js"
+  ],
   "launchers": {
     "node": {
-      "command": "npm run-script build && export NODE_PATH=./dist/tests/ && ./node_modules/.bin/mocha -r dist/tests/setup_cjs.js -R tap dist/tests/*test.js",
+      "command": "npm run build && export NODE_PATH=./dist/tests/ && ./node_modules/.bin/mocha -r dist/tests/setup_cjs.js -R tap dist/tests/*test.js dist/**/*.jshint.js",
       "protocol": "tap"
     }
   },
