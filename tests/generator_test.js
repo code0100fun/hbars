@@ -99,7 +99,7 @@ describe('generator', function () {
         tag: "p",
         nodes: [
           {
-            type: "helper",
+            type: "block_expression",
             name: "each",
             content: "things",
             nodes: [
@@ -131,6 +131,56 @@ describe('generator', function () {
     ];
     var template = generate(ast);
     expect(template).to.equal('<p>\n  {{name}}\n</p>');
+  });
+
+  it('generates new each syntax', function () {
+    var ast = [
+      {
+        type: "element",
+        tag: "p",
+        nodes: [
+          {
+            type: "block_expression",
+            name: "each",
+            content: "things as |thing|",
+            nodes: [
+              {
+                type: "element",
+                tag: "p",
+              }
+            ]
+          },
+        ]
+      }
+    ];
+    var template = generate(ast);
+    expect(template).to.equal('<p>\n  {{#each things as |thing|}}\n    <p></p>\n  {{/each}}\n</p>');
+  });
+
+  it('generates if/else', function () {
+    var ast = [
+      {
+        type: "block_expression",
+        name: "if",
+        content: "foo",
+        nodes: [
+          {
+            type: "element",
+            tag: "p"
+          },
+          {
+            type: "block_delimeter",
+            name: "else"
+          },
+          {
+            type: "element",
+            tag: "div"
+          }
+        ]
+      },
+    ];
+    var template = generate(ast);
+    expect(template).to.equal('{{#if foo}}\n  <p></p>\n{{else}}\n  <div></div>\n{{/if}}');
   });
 
 });

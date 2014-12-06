@@ -114,7 +114,7 @@ describe('parser', function () {
     ]);
   });
 
-  it('block helpers', function () {
+  it('block expressions', function () {
     var ast = parse('.foo\n\t- each things\n\t\t.qux');
     expect(ast).to.deep.equal([
       {
@@ -125,7 +125,7 @@ describe('parser', function () {
         },
         nodes: [
           {
-            type: "helper",
+            type: "block_expression",
             name: "each",
             content: "things",
             nodes: [
