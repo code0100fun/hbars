@@ -159,4 +159,29 @@ describe('parser', function () {
     ]);
   });
 
+  it('if/else', function () {
+    var ast = parse('- if foo\n  %p\n- else\n  %div');
+    expect(ast).to.deep.equal([
+      {
+        type: "block_expression",
+        name: "if",
+        content: "foo",
+        nodes: [
+          {
+            type: "element",
+            tag: "p"
+          },
+          {
+            type: "mid_block_expression",
+            name: "else"
+          },
+          {
+            type: "element",
+            tag: "div"
+          }
+        ]
+      },
+    ]);
+  });
+
 });

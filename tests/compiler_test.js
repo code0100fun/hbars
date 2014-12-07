@@ -22,4 +22,14 @@ describe('compiler', function () {
     expect(template).to.equal('<p>\n  {{name}}\n</p>');
   });
 
+  it('compiles if/else', function () {
+    var template = Compiler.compile('-if foo\n  %p\n-else\n  %a');
+    expect(template).to.equal('{{#if foo}}\n  <p></p>\n{{else}}\n  <a></a>\n{{/if}}');
+  });
+
+  it('compiles unless', function () {
+    var template = Compiler.compile('-unless foo\n  %p\n');
+    expect(template).to.equal('{{#unless foo}}\n  <p></p>\n{{/unless}}');
+  });
+
 });

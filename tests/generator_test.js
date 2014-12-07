@@ -169,7 +169,7 @@ describe('generator', function () {
             tag: "p"
           },
           {
-            type: "block_delimeter",
+            type: "mid_block_expression",
             name: "else"
           },
           {
