@@ -183,4 +183,35 @@ describe('generator', function () {
     expect(template).to.equal('{{#if foo}}\n  <p></p>\n{{else}}\n  <div></div>\n{{/if}}');
   });
 
+  it('attributes', function () {
+    var ast = [
+      {
+        type: "element",
+        tag: "p",
+        attributes: {
+          name : 'foo',
+          style: 'bar'
+        }
+      }
+    ];
+    var template = generate(ast);
+    expect(template).to.equal('<p name="foo" style="bar"></p>');
+  });
+
+  it('attribute bindings', function () {
+    var ast = [
+      {
+        type: "element",
+        tag: "p",
+        attributeBindings: {
+          name : 'foo',
+          style: '"bar"'
+        }
+      }
+    ];
+    var template = generate(ast);
+    expect(template).to.equal('<p {{bind-attr name=foo style="bar"}}></p>');
+  });
+
+
 });

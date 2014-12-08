@@ -51,7 +51,7 @@ describe('parser', function () {
     ]);
   });
 
-  it('defaults element to div if no tag is givin', function () {
+  it('defaults element to div if no tag is given', function () {
     var ast = parse('.foo#baz.bar');
     expect(ast).to.deep.equal([
       {
@@ -182,6 +182,38 @@ describe('parser', function () {
         ]
       },
     ]);
+  });
+
+  describe('attributes', function() {
+
+    it('static attributes', function () {
+      var ast = parse("%p( name=\"foo\" style=\"bar\" )");
+      expect(ast).to.deep.equal([
+        {
+          type: "element",
+          tag: "p",
+          attributes: {
+            name : '"foo"',
+            style: '"bar"'
+          }
+        }
+      ]);
+    });
+
+    it('bind-attr', function () {
+      var ast = parse("%p{ name=foo style='bar' }");
+      expect(ast).to.deep.equal([
+        {
+          type: "element",
+          tag: "p",
+          attributeBindings: {
+            name : 'foo',
+            style: '\'bar\''
+          }
+        }
+      ]);
+    });
+
   });
 
 });
