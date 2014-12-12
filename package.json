@@ -10,6 +10,7 @@
   "author": "Chase McCarthy",
   "license": "ISC",
   "devDependencies": {
+    "ast-util": "^0.5.2",
     "broccoli": "^0.13.3",
     "broccoli-compile-modules": "^1.1.0",
     "broccoli-concat": "0.0.12",
@@ -23,6 +24,7 @@
     "chai": "^1.10.0",
     "es6-module-transpiler-amd-formatter": "^0.2.4",
     "mocha": "^2.0.1",
-    "pegjs": "^0.8.0"
+    "pegjs": "^0.8.0",
+    "recast": "^0.9.8"
   }
 }

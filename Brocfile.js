@@ -8,6 +8,7 @@ var peg = require('broccoli-pegjs');
 var wrapFiles = require('broccoli-wrap');
 var removeFile = require('broccoli-file-remover');
 var jshint = require('broccoli-jshint');
+var CJSFormatter = require('./ext/commonjs_formatter');
 
 var bower = 'bower_components';
 
@@ -104,7 +105,7 @@ var libTreeTestES6 = pickFiles(libTreeES6, {
 libTreeTestES6 = mergeTrees([libTreeTestES6, testsTreeES6]);
 
 var testsTreeCJS = compileModulesCJS(libTreeTestES6, {
-  formatter: 'commonjs'
+  formatter: new CJSFormatter()
 });
 
 testsTreeCJS = removeFile(testsTreeCJS, {
