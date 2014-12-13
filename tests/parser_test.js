@@ -225,7 +225,7 @@ describe('parser', function () {
 
   describe('plain text', function(){
 
-    it('parses nested plain text', function() {
+    it('nested', function() {
       var ast = parse("%p\n  some plain text 1234567890 !@#$%^&*()_+-={}[]|;:'?/>.<,");
       expect(ast).to.deep.equal([
         {
@@ -237,6 +237,17 @@ describe('parser', function () {
               content: "some plain text 1234567890 !@#$%^&*()_+-={}[]|;:'?/>.<,"
             }
           ]
+        }
+      ]);
+    });
+
+    it('inline', function() {
+      var ast = parse("%p some plain text 1234567890 !@#$%^&*()_+-={}[]|;:'?/>.<,");
+      expect(ast).to.deep.equal([
+        {
+          type: "element",
+          tag: "p",
+          content: "some plain text 1234567890 !@#$%^&*()_+-={}[]|;:'?/>.<,"
         }
       ]);
     });
