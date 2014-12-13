@@ -223,4 +223,24 @@ describe('parser', function () {
 
   });
 
+  describe('plain text', function(){
+
+    it('parses nested plain text', function() {
+      var ast = parse("%p\n  some plain text 1234567890 !@#$%^&*()_+-={}[]|;:'?/>.<,");
+      expect(ast).to.deep.equal([
+        {
+          type: "element",
+          tag: "p",
+          nodes: [
+            {
+              type: "text",
+              content: "some plain text 1234567890 !@#$%^&*()_+-={}[]|;:'?/>.<,"
+            }
+          ]
+        }
+      ]);
+    });
+
+  });
+
 });
