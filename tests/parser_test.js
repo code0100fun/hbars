@@ -1,8 +1,15 @@
 import { parse as preprocess } from 'preprocessor';
 import { parse as parser } from 'parser';
 
+var options = {};
+
 function parse(haml) {
-  return parser(preprocess(haml));
+  try {
+    var preprocessed = preprocess(haml, options);
+    return parser(preprocessed, options);
+  }catch(e){
+   return e.message;
+  }
 }
 
 describe('parser', function () {
