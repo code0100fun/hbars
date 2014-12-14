@@ -213,5 +213,26 @@ describe('generator', function () {
     expect(template).to.equal('<p {{bind-attr name=foo style="bar"}}></p>');
   });
 
+  describe('plain text', function(){
+
+    it('nested', function() {
+      var ast = [
+        {
+          type: "element",
+          tag: "p",
+          nodes: [
+            {
+              type: "text",
+              content: "some plain text 1234567890 !@#$*()_+-="
+            }
+          ]
+        }
+      ];
+
+      var template = generate(ast);
+      expect(template).to.equal('<p>\n  some plain text 1234567890 !@#$*()_+-=\n</p>');
+    });
+
+  });
 
 });
