@@ -233,6 +233,18 @@ describe('generator', function () {
       expect(template).to.equal('<p>\n  some plain text 1234567890 !@#$*()_+-=\n</p>');
     });
 
+    it('inline', function() {
+      var ast = [
+        {
+          type: "element",
+          tag: "p",
+          content: "some plain text 1234567890 !@#$*()_+-="
+        }
+      ];
+      var template = generate(ast);
+      expect(template).to.equal('<p>some plain text 1234567890 !@#$*()_+-=</p>');
+    });
+
   });
 
 });
