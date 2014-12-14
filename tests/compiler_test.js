@@ -37,4 +37,18 @@ describe('compiler', function () {
     expect(template).to.equal('<p {{bind-attr name=foo style="bar"}}></p>');
   });
 
+  describe('plain text', function(){
+
+    it('nested', function() {
+      var template = Compiler.compile("%p\n  some plain text 1234567890 !@#$*()_+-=");
+      expect(template).to.equal('<p>\n  some plain text 1234567890 !@#$*()_+-=\n</p>');
+    });
+
+    it('inline', function() {
+      var template = Compiler.compile("%p some plain text 1234567890 !@#$*()_+-=");
+      expect(template).to.equal('<p>some plain text 1234567890 !@#$*()_+-=</p>');
+    });
+
+  });
+
 });
