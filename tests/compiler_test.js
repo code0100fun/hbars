@@ -51,4 +51,14 @@ describe('compiler', function () {
 
   });
 
+  describe('interpolation', function() {
+
+    it('inline beginning', function() {
+      var template = Compiler.compile("%p #{foo} bar #{baz}");
+      expect(template).to.deep.equal('<p>{{foo}} bar {{baz}}</p>');
+    });
+
+  });
+
+
 });

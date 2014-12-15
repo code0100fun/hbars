@@ -245,6 +245,25 @@ describe('generator', function () {
       expect(template).to.equal('<p>some plain text 1234567890 !@#$*()_+-=</p>');
     });
 
+    describe('interpolation', function() {
+
+      it('inline beginning', function() {
+        var ast = [
+          {
+            type: "element",
+            tag: "p",
+            content: [
+              { type: 'expression', content: 'foo' },
+              ' bar',
+              { type: 'text', content: ' baz' }
+            ]
+          }
+        ];
+        expect(generate(ast)).to.equal('<p>{{foo}} bar baz</p>');
+      });
+
+    });
+
   });
 
 });

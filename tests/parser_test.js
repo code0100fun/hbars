@@ -252,6 +252,27 @@ describe('parser', function () {
       ]);
     });
 
+    describe('interpolation', function() {
+
+      it('inline beginning', function() {
+        var ast = parse("%p #{foo} {bar} #{baz} #{qux}");
+        expect(ast).to.deep.equal([
+          {
+            type: "element",
+            tag: "p",
+            content: [
+              { type: 'expression', content: 'foo' },
+              ' {bar} ',
+              { type: 'expression', content: 'baz' },
+              ' ',
+              { type: 'expression', content: 'qux' }
+            ]
+          }
+        ]);
+      });
+
+    });
+
   });
 
 });
