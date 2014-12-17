@@ -5,7 +5,8 @@
   "main": "hbars.js",
   "scripts": {
     "build": "rm -rf dist/ tmp/ && broccoli build dist",
-    "test": "./node_modules/.bin/testem"
+    "test": "./node_modules/.bin/testem",
+    "postinstall": "npm run build"
   },
   "author": "Chase McCarthy",
   "license": "ISC",
