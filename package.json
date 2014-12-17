@@ -1,10 +1,10 @@
 {
   "name": "hbars",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A Haml implementation for Handlebars/HTMLBars",
   "main": "hbars.js",
   "scripts": {
-    "build": "rm -rf dist/ tmp/ && broccoli build dist",
+    "build": "rm -rf dist/ tmp/ && $(which broccoli) build dist",
     "test": "./node_modules/.bin/testem",
     "postinstall": "npm run build"
   },
