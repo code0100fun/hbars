@@ -12,6 +12,13 @@ var Replacement = require('../node_modules/broccoli-es6-module-transpiler/node_m
 var Formatter = require('../node_modules/broccoli-es6-module-transpiler/node_modules/es6-module-transpiler/lib/formatters/formatter');
 var path = require('path');
 
+function prependDotSlash(path){
+  if(path.indexOf('./') === 0 || path.indexOf('../') === 0){
+    return path;
+  }
+  return './' + path;
+}
+
 /**
  * The 'commonjs' setting for referencing exports aims to produce code that can
  * be used in environments using the CommonJS module system, such as Node.js.
@@ -212,7 +219,7 @@ CommonJSFormatter.prototype.buildRequires = function(mod) {
           'no matching declaration for source module: ' + sourceModule.relativePath
       );
 
-      var relativePath = './' + path.relative(process.cwd(), path.basename(sourceModule.relativePath, '.js'));
+      var relativePath = prependDotSlash(path.relative(path.dirname(mod.path), sourceModule.path));
 
       // `(import|export) { ... } from 'math'` -> `math$$ = require('math')`
       declarators.push(b.variableDeclarator(

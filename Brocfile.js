@@ -123,7 +123,7 @@ testsTreeCJS = mergeTrees([testsTreeCJS, pegFilesCJS, setupCJS]);
 var libTreeTestCJS = pickFiles(testsTreeCJS, {
   srcDir: '/',
   files: ['*.js'],
-  destDir: '/tests'
+  destDir: '/'
 });
 
 var testsTreeCJS = pickFiles(testsTreeCJS, {
