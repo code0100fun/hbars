@@ -14,4 +14,8 @@ HAML => HTMLBars
 
 ## Test
 
-`npm test`
+`./bin/test`
+
+or
+
+`./bin/test 'compiler'`
