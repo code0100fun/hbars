@@ -1,8 +1,12 @@
 {
   "name": "hbars",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Haml implementation for Handlebars/HTMLBars",
   "main": "hbars.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/code0100fun/hbars.git"
+  },
   "scripts": {
     "build": "rm -rf dist/ tmp/ && $(which broccoli) build dist",
     "test": "./node_modules/.bin/testem",

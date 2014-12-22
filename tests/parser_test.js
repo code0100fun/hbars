@@ -271,6 +271,23 @@ describe('parser', function () {
         ]);
       });
 
+      // it('nested beginning', function() {
+      //   var ast = parse("%p\n  #{foo} {bar} #{baz} #{qux}");
+      //   expect(ast).to.deep.equal([
+      //     {
+      //       type: "element",
+      //       tag: "p",
+      //       nodes: [
+      //         { type: 'expression', content: 'foo' },
+      //         ' {bar} ',
+      //         { type: 'expression', content: 'baz' },
+      //         ' ',
+      //         { type: 'expression', content: 'qux' }
+      //       ]
+      //     }
+      //   ]);
+      // });
+
     });
 
   });

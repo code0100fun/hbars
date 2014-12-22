@@ -9,6 +9,7 @@ var wrapFiles = require('broccoli-wrap');
 var removeFile = require('broccoli-file-remover');
 var jshint = require('broccoli-jshint');
 var CJSFormatter = require('./ext/commonjs_formatter');
+var FileResolver = require('./node_modules/broccoli-es6-module-transpiler/node_modules/es6-module-transpiler').FileResolver;
 
 var bower = 'bower_components';
 
@@ -68,7 +69,8 @@ var pegFilesAMD = mergeTrees([parser, preprocessor]);
 var libTreeAMD = compileModules(libTreeES6, {
   inputFiles: ['**/*.js'],
   output: '/',
-  formatter: new AMDFormatter()
+  formatter: new AMDFormatter(),
+  resolvers: [ new FileResolver(['lib/']) ]
 });
 
 libTreeAMD = removeFile(libTreeAMD, {

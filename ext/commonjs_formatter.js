@@ -220,6 +220,7 @@ CommonJSFormatter.prototype.buildRequires = function(mod) {
       );
 
       var relativePath = prependDotSlash(path.relative(path.dirname(mod.path), sourceModule.path));
+      console.log(relativePath);
 
       // `(import|export) { ... } from 'math'` -> `math$$ = require('math')`
       declarators.push(b.variableDeclarator(
