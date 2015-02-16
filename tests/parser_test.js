@@ -221,6 +221,24 @@ describe('parser', function () {
       ]);
     });
 
+    it('attribute helper expressions', function () {
+      var ast = parse("%p{action \"submit\"}{ name=foo style='bar' }{blah foo}");
+      expect(ast).to.deep.equal([
+        {
+          type: "element",
+          tag: "p",
+          attributeBindings: {
+            name : 'foo',
+            style: '\'bar\''
+          },
+          helpers: [
+            { type: 'expression', content: 'action "submit"' },
+            { type: 'expression', content: 'blah foo' }
+          ]
+        }
+      ]);
+    });
+
   });
 
   describe('plain text', function(){

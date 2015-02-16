@@ -43,9 +43,14 @@ describe('preprocessor', function () {
     expect(processed).to.equal('%p.>%p.<');
   });
 
-  it('handle multiple root level nodes', function () {
+  it('handles multiple root level nodes', function () {
     var processed = preprocess('%p\n\t%p\n%a\n%p', options);
     expect(processed).to.equal('%p.>%p.<%a.%p.');
+  });
+
+  it('allows for multiple bound attribute hashes', function () {
+    var processed = preprocess('%p{f="b"}{a "c"}\n\t%p', options);
+    expect(processed).to.equal('%p{f="b"}{a "c"}.>%p.<');
   });
 
 });

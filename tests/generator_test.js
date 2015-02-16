@@ -213,6 +213,24 @@ describe('generator', function () {
     expect(template).to.equal('<p {{bind-attr name=foo style="bar"}}></p>');
   });
 
+  it('helper attribute expressions', function () {
+    var ast = [
+      {
+        type: "element",
+        tag: "a",
+        attributeBindings: {
+          name : 'foo'
+        },
+        content: 'Submit',
+        helpers: [
+          { type: 'expression', content: 'action "submit"' }
+        ]
+      }
+    ];
+    var template = generate(ast);
+    expect(template).to.equal('<a {{bind-attr name=foo}}{{action "submit"}}>Submit</a>');
+  });
+
   describe('plain text', function(){
 
     it('nested', function() {
