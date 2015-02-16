@@ -37,6 +37,16 @@ describe('compiler', function () {
     expect(template).to.equal('<p {{bind-attr name=foo style="bar"}}></p>');
   });
 
+  it('attribute helper', function () {
+    var template = Compiler.compile('%button{ name=name style="bar" }{action "submit"}Submit');
+    expect(template).to.equal('<button {{bind-attr name=name style="bar"}} {{action "submit"}}>Submit</button>');
+  });
+
+  it('attribute helper nested content', function () {
+    var template = Compiler.compile('%button{action "submit"}\n Submit');
+    expect(template).to.equal('<button {{action "submit"}}>\n  Submit\n</button>');
+  });
+
   describe('plain text', function(){
 
     it('nested', function() {
