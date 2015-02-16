@@ -53,4 +53,9 @@ describe('preprocessor', function () {
     expect(processed).to.equal('%p{f="b"}{a "c"}.>%p.<');
   });
 
+  it('captures expressions until EOL, INDENT, DEDENT, or EOF', function () {
+    var processed = preprocess("= input type='text' value=name id='name'", options);
+    expect(processed).to.equal("= input type='text' value=name id='name'.");
+  });
+
 });

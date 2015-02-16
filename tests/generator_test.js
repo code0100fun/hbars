@@ -213,6 +213,17 @@ describe('generator', function () {
     expect(template).to.equal('<p {{bind-attr name=foo style="bar"}}></p>');
   });
 
+  it('helper expression', function () {
+    var ast = [
+      {
+        type: "expression",
+        content: "input type='text' value=name id='name'"
+      }
+    ];
+    var template = generate(ast);
+    expect(template).to.equal("{{input type='text' value=name id='name'}}");
+  });
+
   it('helper attribute expressions', function () {
     var ast = [
       {

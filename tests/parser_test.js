@@ -166,6 +166,16 @@ describe('parser', function () {
     ]);
   });
 
+  it('helper expression', function () {
+    var ast = parse("= input type='text' value=name id='name'");
+    expect(ast).to.deep.equal([
+      {
+        type: "expression",
+        content: "input type='text' value=name id='name'"
+      }
+    ]);
+  });
+
   it('if/else', function () {
     var ast = parse('- if foo\n  %p\n- else\n  %div');
     expect(ast).to.deep.equal([
