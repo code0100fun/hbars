@@ -239,7 +239,7 @@ describe('generator', function () {
       }
     ];
     var template = generate(ast);
-    expect(template).to.equal('<a {{bind-attr name=foo}}{{action "submit"}}>Submit</a>');
+    expect(template).to.equal('<a {{bind-attr name=foo}} {{action "submit"}}>Submit</a>');
   });
 
   describe('plain text', function(){
