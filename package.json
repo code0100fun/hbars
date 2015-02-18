@@ -1,6 +1,6 @@
 {
   "name": "hbars",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A Haml implementation for Handlebars/HTMLBars",
   "main": "hbars.js",
   "repository": {
