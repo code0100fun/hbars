@@ -6,6 +6,7 @@
     "assert",
     "expect",
     "it",
-    "describe"
+    "describe",
+    "console"
   ]
 }
