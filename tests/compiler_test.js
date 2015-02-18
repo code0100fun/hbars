@@ -73,6 +73,16 @@ describe('compiler', function () {
       expect(template).to.equal('<p>{{foo}} bar {{baz}}</p>');
     });
 
+    it('inline with spaces', function() {
+      var template = Compiler.compile("%p #{if foo bar} bar");
+      expect(template).to.equal('<p>{{if foo bar}} bar</p>');
+    });
+
+    it('special characters', function() {
+      var template = Compiler.compile("%p #{12 !@#$%^&*()_+=-\"': /><,.|\\} bar");
+      expect(template).to.equal("<p>{{12 !@#$%^&*()_+=-\"': /><,.|\\}} bar</p>");
+    });
+
   });
 
   describe('newlines', function() {
