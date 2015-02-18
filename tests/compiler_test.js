@@ -82,4 +82,18 @@ describe('compiler', function () {
     });
   });
 
+  describe('blank lines', function() {
+
+    it('between inline plain elements', function() {
+      var template = Compiler.compile("%p\n\n%p");
+      expect(template).to.equal('<p></p>\n<p></p>');
+    });
+
+    it('between nested plain elements', function() {
+      var template = Compiler.compile(".foo\n %p\n\n%p");
+      expect(template).to.equal('<div class="foo">\n  <p></p>\n</div>\n<p></p>');
+    });
+
+  });
+
 });
