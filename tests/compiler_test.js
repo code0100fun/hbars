@@ -32,6 +32,11 @@ describe('compiler', function () {
     expect(template).to.equal('{{#unless foo}}\n  <p></p>\n{{/unless}}');
   });
 
+  it('handles single and double quoted attributes', function () {
+    var template = Compiler.compile('%p( name=\'foo\' style="bar" )');
+    expect(template).to.equal('<p name="foo" style="bar"></p>');
+  });
+
   it('bind-attr', function () {
     var template = Compiler.compile('%p{ name=foo style="bar" }');
     expect(template).to.equal('<p {{bind-attr name=foo style="bar"}}></p>');
