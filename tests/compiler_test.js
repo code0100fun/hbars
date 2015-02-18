@@ -70,10 +70,16 @@ describe('compiler', function () {
 
     it('inline beginning', function() {
       var template = Compiler.compile("%p #{foo} bar #{baz}");
-      expect(template).to.deep.equal('<p>{{foo}} bar {{baz}}</p>');
+      expect(template).to.equal('<p>{{foo}} bar {{baz}}</p>');
     });
 
   });
 
+  describe('newlines', function() {
+    it('between nested plain elements', function() {
+      var template = Compiler.compile(".foo\n %p\n %p\n%p");
+      expect(template).to.equal('<div class="foo">\n  <p></p>\n  <p></p>\n</div>\n<p></p>');
+    });
+  });
 
 });
