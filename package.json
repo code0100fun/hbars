@@ -1,8 +1,7 @@
 {
   "name": "hbars",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "A Haml implementation for Handlebars/HTMLBars",
-  "main": "hbars.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/code0100fun/hbars.git"
@@ -14,7 +13,7 @@
   },
   "author": "Chase McCarthy",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "ast-util": "^0.5.2",
     "broccoli": "^0.13.3",
     "broccoli-compile-modules": "^1.1.0",
