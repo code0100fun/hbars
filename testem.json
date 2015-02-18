@@ -3,6 +3,7 @@
   "test_page": "dist/tests/index.html",
   "src_files": [
     "lib/**/*.js",
+    "lib/**/*.pegjs",
     "tests/**/*.js"
   ],
   "launchers": {
