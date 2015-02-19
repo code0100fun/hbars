@@ -121,6 +121,16 @@ describe('parser', function () {
     ]);
   });
 
+  it('inline expression', function () {
+    var ast = parse('= user.name');
+    expect(ast).to.deep.equal([
+      {
+        type: "expression",
+        content: "user.name",
+      }
+    ]);
+  });
+
   it('block expressions', function () {
     var ast = parse('.foo\n\t- each things\n\t\t.qux');
     expect(ast).to.deep.equal([
@@ -151,7 +161,7 @@ describe('parser', function () {
   });
 
   it('mustache expression', function () {
-    var ast = parse('%p\n\t= name');
+    var ast = parse('%p\n\t= user.name');
     expect(ast).to.deep.equal([
       {
         type: "element",
@@ -159,7 +169,7 @@ describe('parser', function () {
         nodes: [
           {
             type: "expression",
-            content: "name",
+            content: "user.name",
           }
         ]
       }
@@ -177,12 +187,12 @@ describe('parser', function () {
   });
 
   it('if/else', function () {
-    var ast = parse('- if foo\n  %p\n- else\n  %div');
+    var ast = parse('- if foo.bar\n  %p\n- else if baz.qux\n  %div');
     expect(ast).to.deep.equal([
       {
         type: "block_expression",
         name: "if",
-        content: "foo",
+        content: "foo.bar",
         nodes: [
           {
             type: "element",
@@ -190,7 +200,8 @@ describe('parser', function () {
           },
           {
             type: "mid_block_expression",
-            name: "else"
+            name: "else",
+            content: "if baz.qux"
           },
           {
             type: "element",
