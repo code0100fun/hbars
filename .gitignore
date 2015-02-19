@@ -4,3 +4,4 @@ lib/parser.js
 lib/preprocessor.js
 tmp/
 dist/
+*.log
