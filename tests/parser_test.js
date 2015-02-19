@@ -217,29 +217,29 @@ describe('parser', function () {
       ]);
     });
 
-    it('bind-attr', function () {
-      var ast = parse("%p{ name=foo style='bar' }");
+    it('attribute binding', function () {
+      var ast = parse("%p{ name=foo.bar class='bar:bar:foo baz' }");
       expect(ast).to.deep.equal([
         {
           type: "element",
           tag: "p",
           attributeBindings: {
-            name : 'foo',
-            style: '\'bar\''
+            name : 'foo.bar',
+            class: '\'bar:bar:foo baz\''
           }
         }
       ]);
     });
 
     it('attribute helper expressions', function () {
-      var ast = parse("%p{action \"submit\"}{ name=foo style='bar' }{blah foo}");
+      var ast = parse("%p{action \"submit\"}{ name=foo class='bar' }{blah foo}");
       expect(ast).to.deep.equal([
         {
           type: "element",
           tag: "p",
           attributeBindings: {
             name : 'foo',
-            style: '\'bar\''
+            class: '\'bar\''
           },
           helpers: [
             { type: 'expression', content: 'action "submit"' },

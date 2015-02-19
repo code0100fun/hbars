@@ -42,6 +42,11 @@ describe('compiler', function () {
     expect(template).to.equal('<p {{bind-attr name=foo style="bar"}}></p>');
   });
 
+  it('bind-attr special chars', function () {
+    var template = Compiler.compile('%p{ class="bar:bar:foo" }');
+    expect(template).to.equal('<p {{bind-attr class="bar:bar:foo"}}></p>');
+  });
+
   it('attribute helper', function () {
     var template = Compiler.compile('%button{ name=name style="bar" }{action "submit"}Submit');
     expect(template).to.equal('<button {{bind-attr name=name style="bar"}} {{action "submit"}}>Submit</button>');
