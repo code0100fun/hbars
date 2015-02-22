@@ -204,13 +204,24 @@ describe('generator', function () {
         type: "element",
         tag: "p",
         attributeBindings: {
-          name : 'foo',
-          style: '"bar"'
+          name : {
+            type: "expression",
+            content: 'foo'
+          },
+          style: {
+            type: 'string',
+            content: [
+              {
+                type: "expression",
+                content: 'bar'
+              }
+            ]
+          }
         }
       }
     ];
     var template = generate(ast);
-    expect(template).to.equal('<p {{bind-attr name=foo style="bar"}}></p>');
+    expect(template).to.equal('<p name={{foo}} style="{{bar}}"></p>');
   });
 
   it('helper expression', function () {
@@ -230,7 +241,10 @@ describe('generator', function () {
         type: "element",
         tag: "a",
         attributeBindings: {
-          name : 'foo'
+          name : {
+            type: 'expression',
+            content: 'foo'
+          }
         },
         content: 'Submit',
         helpers: [
@@ -239,7 +253,7 @@ describe('generator', function () {
       }
     ];
     var template = generate(ast);
-    expect(template).to.equal('<a {{bind-attr name=foo}} {{action "submit"}}>Submit</a>');
+    expect(template).to.equal('<a name={{foo}} {{action "submit"}}>Submit</a>');
   });
 
   describe('plain text', function(){

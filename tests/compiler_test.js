@@ -32,29 +32,42 @@ describe('compiler', function () {
     expect(template).to.equal('{{#unless foo}}\n  <p></p>\n{{/unless}}');
   });
 
-  it('handles single and double quoted attributes', function () {
-    var template = Compiler.compile('%p( name=\'foo\' style="bar" )');
-    expect(template).to.equal('<p name="foo" style="bar"></p>');
-  });
+  describe('attributes', function(){
 
-  it('bind-attr', function () {
-    var template = Compiler.compile('%p{ name=foo style="bar" }');
-    expect(template).to.equal('<p {{bind-attr name=foo style="bar"}}></p>');
-  });
+    it('handles single and double quoted attributes', function () {
+      var template = Compiler.compile('%p( name=\'foo\' style="bar" )');
+      expect(template).to.equal('<p name="foo" style="bar"></p>');
+    });
 
-  it('bind-attr special chars', function () {
-    var template = Compiler.compile('%p{ class="bar:bar:foo" }');
-    expect(template).to.equal('<p {{bind-attr class="bar:bar:foo"}}></p>');
-  });
+    describe('binding', function() {
 
-  it('attribute helper', function () {
-    var template = Compiler.compile('%button{ name=name style="bar" }{action "submit"}Submit');
-    expect(template).to.equal('<button {{bind-attr name=name style="bar"}} {{action "submit"}}>Submit</button>');
-  });
+      it('literal', function () {
+        var template = Compiler.compile('%p{ disabled=isDisabled }');
+        expect(template).to.equal('<p disabled={{isDisabled}}></p>');
+      });
 
-  it('attribute helper nested content', function () {
-    var template = Compiler.compile('%button{action "submit"}\n Submit');
-    expect(template).to.equal('<button {{action "submit"}}>\n  Submit\n</button>');
+      it('quoted', function () {
+        var template = Compiler.compile('%p{ name="#{bar}" }');
+        expect(template).to.equal('<p name="{{bar}}"></p>');
+      });
+
+      it('complicated expression', function () {
+        var template = Compiler.compile("%p{ class=\"baz #{ if bar 'bar' 'foo' }\" }");
+        expect(template).to.equal("<p class=\"baz {{ if bar 'bar' 'foo' }}\"></p>");
+      });
+
+    });
+
+    it('helper', function () {
+      var template = Compiler.compile('%button{ name=name class="bar #{foo}" }{action "submit"}Submit');
+      expect(template).to.equal('<button name={{name}} class="bar {{foo}}" {{action "submit"}}>Submit</button>');
+    });
+
+    it('helper nested content', function () {
+      var template = Compiler.compile('%button{action "submit"}\n Submit');
+      expect(template).to.equal('<button {{action "submit"}}>\n  Submit\n</button>');
+    });
+
   });
 
   describe('plain text', function(){

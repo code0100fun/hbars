@@ -214,43 +214,60 @@ describe('parser', function () {
 
   describe('attributes', function() {
 
-    it('static attributes', function () {
+    it('static', function () {
       var ast = parse("%p( name=\"foo\" style=\"bar\" )");
       expect(ast).to.deep.equal([
         {
           type: "element",
           tag: "p",
           attributes: {
-            name : '"foo"',
-            style: '"bar"'
+            name : { type: "string", content: "foo" },
+            style : { type: "string", content: "bar" }
           }
         }
       ]);
     });
 
-    it('attribute binding', function () {
-      var ast = parse("%p{ name=foo.bar class='bar:bar:foo baz' }");
+    it('binding', function () {
+      var ast = parse('%p{ name=foo.bar foo="baz #{ if bar \'bar\' \'foo\' } blah #{ foo }" }');
       expect(ast).to.deep.equal([
         {
           type: "element",
           tag: "p",
           attributeBindings: {
-            name : 'foo.bar',
-            class: '\'bar:bar:foo baz\''
+            name : {
+              type: 'expression',
+              content: 'foo.bar'
+            },
+            foo: {
+              type: 'string',
+              content: [
+                'baz ',
+                {
+                  type: 'expression',
+                  content: ' if bar \'bar\' \'foo\' '
+                },
+                ' blah ',
+                {
+                  type: 'expression',
+                  content: ' foo '
+                }
+              ]
+            }
           }
         }
       ]);
     });
 
-    it('attribute helper expressions', function () {
-      var ast = parse("%p{action \"submit\"}{ name=foo class='bar' }{blah foo}");
+    it('helper expressions', function () {
+      var ast = parse('%p{action "submit"}{ name=foo class="bar" }{blah foo}');
       expect(ast).to.deep.equal([
         {
           type: "element",
           tag: "p",
           attributeBindings: {
-            name : 'foo',
-            class: '\'bar\''
+            name : { type: "expression", content: "foo" },
+            class: { type: "string", content: "bar" }
           },
           helpers: [
             { type: 'expression', content: 'action "submit"' },
