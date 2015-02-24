@@ -2,6 +2,10 @@
   "name": "hbars",
   "devDependencies": {
     "loader": "stefanpenner/loader.js#2.1.1",
-    "qunit": "~1.14.0"
+    "qunit": "~1.14.0",
+    "ember": "http://builds.emberjs.com/tags/v1.11.0-beta.2/ember.js",
+    "ember-template-compiler": "http://builds.emberjs.com/tags/v1.10.0/ember-template-compiler.js",
+    "jquery": "~2.1.3",
+    "handlebars-v2.0.0": "http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v2.0.0.js"
   }
 }
