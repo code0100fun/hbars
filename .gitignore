@@ -5,3 +5,4 @@ lib/preprocessor.js
 tmp/
 dist/
 *.log
+gh-pages/
