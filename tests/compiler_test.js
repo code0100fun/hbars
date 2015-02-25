@@ -22,6 +22,11 @@ describe('compiler', function () {
     expect(template).to.equal('<p>\n  {{#each things}}\n    <p></p>\n  {{/each}}\n</p>');
   });
 
+  it('inline expression', function () {
+    var template = Compiler.compile('%p= name');
+    expect(template).to.equal('<p>{{name}}</p>');
+  });
+
   it('nested expression', function () {
     var template = Compiler.compile('%p\n\t= name');
     expect(template).to.equal('<p>\n  {{name}}\n</p>');

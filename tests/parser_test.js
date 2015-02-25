@@ -131,6 +131,22 @@ describe('parser', function () {
     ]);
   });
 
+  it('inline expression with tag', function () {
+    var ast = parse('%p= user.name');
+    expect(ast).to.deep.equal([
+      {
+        type: "element",
+        tag: "p",
+        content: [
+          {
+            type: "expression",
+            content: "user.name",
+          }
+        ]
+      }
+    ]);
+  });
+
   it('block expressions', function () {
     var ast = parse('.foo\n\t- each things\n\t\t.qux');
     expect(ast).to.deep.equal([
@@ -303,7 +319,7 @@ describe('parser', function () {
         {
           type: "element",
           tag: "p",
-          content: "some plain text 1234567890 !@#$%^&*()_+-={}[]|;:'?/>.<,"
+          content: ["some plain text 1234567890 !@#$%^&*()_+-={}[]|;:'?/>.<,"]
         }
       ]);
     });
