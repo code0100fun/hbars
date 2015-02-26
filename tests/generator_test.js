@@ -84,12 +84,18 @@ describe('generator', function () {
           {
             type: "element",
             tag: "a",
+            nodes: [
+              {
+                type: "element",
+                tag: "span",
+              }
+            ]
           }
         ]
       },
     ];
     var template = generate(ast);
-    expect(template).to.equal('<p>\n  <a></a>\n</p>');
+    expect(template).to.equal('<p>\n  <a>\n    <span></span>\n  </a>\n</p>');
   });
 
   it('generates nested helpers', function () {
