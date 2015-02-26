@@ -37,6 +37,11 @@ describe('compiler', function () {
     expect(template).to.equal('{{#if foo}}\n  <p></p>\n{{else}}\n  <a></a>\n{{/if}}');
   });
 
+  it('if/else if', function () {
+    var template = Compiler.compile('-if foo\n  %p\n-else if bar\n  %a\n-else\n  %s');
+    expect(template).to.equal('{{#if foo}}\n  <p></p>\n{{else if bar}}\n  <a></a>\n{{else}}\n  <s></s>\n{{/if}}');
+  });
+
   it('unless', function () {
     var template = Compiler.compile('-unless foo\n  %p\n');
     expect(template).to.equal('{{#unless foo}}\n  <p></p>\n{{/unless}}');

@@ -121,6 +121,44 @@ describe('parser', function () {
     ]);
   });
 
+  it('complex nested element', function () {
+    var ast = parse('.foo\n\t.bar\n\t\t.baz\n\t.qux');
+    expect(ast).to.deep.equal([
+      {
+        type: "element",
+        tag: "div",
+        attributes: {
+          class : 'foo'
+        },
+        nodes: [
+          {
+            type: "element",
+            tag: "div",
+            attributes: {
+              class : 'bar'
+            },
+            nodes: [
+              {
+                type: "element",
+                tag: "div",
+                attributes: {
+                  class : 'baz'
+                }
+              }
+            ]
+          },
+          {
+            type: "element",
+            tag: "div",
+            attributes: {
+              class : 'qux'
+            }
+          }
+        ]
+      }
+    ]);
+  });
+
   it('inline expression', function () {
     var ast = parse('= user.name');
     expect(ast).to.deep.equal([
@@ -171,6 +209,61 @@ describe('parser', function () {
               }
             ]
           },
+        ]
+      }
+    ]);
+  });
+
+  it('complex block expressions', function () {
+    var ast = parse('.foo\n\t- if thing\n\t\t.qux\n\t- else if not\n\t\t.bar\n\t- if foo\n\t\t.baz');
+    expect(ast).to.deep.equal([
+      {
+        type: "element",
+        tag: "div",
+        attributes: {
+          class : 'foo'
+        },
+        nodes: [
+          {
+            type: "block_expression",
+            name: "if",
+            content: "thing",
+            nodes: [
+              {
+                type: "element",
+                tag: "div",
+                attributes: {
+                  class : 'qux'
+                }
+              },
+              {
+                type: "mid_block_expression",
+                name: "else",
+                content: "if not"
+              },
+              {
+                type: "element",
+                tag: "div",
+                attributes: {
+                  class : 'bar'
+                }
+              }
+            ]
+          },
+          {
+            type: "block_expression",
+            name: "if",
+            content: "foo",
+            nodes: [
+              {
+                type: "element",
+                tag: "div",
+                attributes: {
+                  class : 'baz'
+                }
+              }
+            ]
+          }
         ]
       }
     ]);
