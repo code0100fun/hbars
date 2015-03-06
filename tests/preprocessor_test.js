@@ -1,4 +1,4 @@
-import { parse as preprocess } from 'preprocessor';
+import { parse as preprocess } from 'hbars/preprocessor';
 
 describe('preprocessor', function () {
 

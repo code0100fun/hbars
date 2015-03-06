@@ -1,4 +1,4 @@
-import { generate } from '../generator';
+import { generate } from 'hbars/generator';
 
 describe('generator', function () {
   it('creates a tag', function () {

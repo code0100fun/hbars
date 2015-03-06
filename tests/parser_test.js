@@ -1,5 +1,5 @@
-import { parse as preprocess } from '../preprocessor';
-import { parse as parser } from '../parser';
+import { parse as preprocess } from 'hbars/preprocessor';
+import { parse as parser } from 'hbars/parser';
 
 var options = {};
 

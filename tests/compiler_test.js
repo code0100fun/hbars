@@ -1,4 +1,4 @@
-import Compiler from '../compiler';
+import Compiler from 'hbars/compiler';
 
 describe('compiler', function () {
 

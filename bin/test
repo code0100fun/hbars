@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 mocha = './node_modules/.bin/mocha'
-setup = 'dist/tests/setup_cjs.js'
+setup = 'dist/tests/support/setup.js'
 tests = 'dist/tests/**/*test.js dist/tests/**/*.jshint.js'
 grep = ARGV[0].nil? ? '' : "-g '#{ARGV[0]}'"
 command = "#{mocha} -r #{setup} #{grep} -R tap #{tests}"
