@@ -1,3 +1,4 @@
+var pkg = require('./package.json');
 var mergeTrees = require('broccoli-merge-trees');
 var pickFiles = require('broccoli-static-compiler');
 var concat = require('broccoli-concat');
@@ -6,6 +7,8 @@ var peg = require('broccoli-pegjs');
 var jshint = require('broccoli-jshint');
 
 var bower = 'bower_components';
+
+var name = pkg.name;
 
 var pegFiles = pickFiles('lib', {
   srcDir: '/',
@@ -23,7 +26,7 @@ var pegFilesES6 = peg(pegFiles, {
 var libTreeES6 = pickFiles(mergeTrees(['lib', pegFilesES6]), {
   srcDir: '/',
   files: ['*.js'],
-  destDir: '/hbars'
+  destDir: '/' + name
 });
 
 var libTreeAMD = compileModules(libTreeES6, {
@@ -40,13 +43,13 @@ var loader = pickFiles(bower, {
 var outputCJS = compileModules(libTreeES6, {
   modules: 'common',
   resolveModuleSource: function(path) {
-    return path.replace(new RegExp('^hbars'),'.');
+    return path.replace(new RegExp('^' + name),'.');
   }
 });
 
 var outputMainAMD = concat(libTreeAMD, {
   inputFiles: [ '**/*.js' ],
-  outputFile: '/hbars.js'
+  outputFile: '/' + name + '.js'
 });
 
 var testIndex = pickFiles('tests', {
@@ -94,7 +97,7 @@ var jshintLib = jshint(libTreeES6, {
 });
 
 jshintLib = pickFiles(jshintLib, {
-  srcDir: '/hbars',
+  srcDir: '/' + name,
   files: ['**/*'],
   destDir: '/tests'
 });
@@ -105,7 +108,7 @@ var jshintTests = jshint(testsTreeES6, {
 
 var webTests = concat(mergeTrees([jshintTests, jshintLib, testsTreeCJS]), {
   inputFiles: ['**/*test.js', '**/*jshint.js'],
-  outputFile: '/tests/hbars-tests.js'
+  outputFile: '/tests/' + name + '-tests.js'
 });
 
 module.exports = mergeTrees([
