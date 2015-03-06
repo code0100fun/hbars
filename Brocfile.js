@@ -7,6 +7,9 @@ var peg = require('broccoli-pegjs');
 var jshint = require('broccoli-jshint');
 
 var bower = 'bower_components';
+var testDir = '/tests';
+var testPostfix = 'test';
+var testsPostfix = 'tests';
 
 var name = pkg.name;
 
@@ -37,7 +40,7 @@ var libTreeAMD = compileModules(libTreeES6, {
 var loader = pickFiles(bower, {
   srcDir: '/loader',
   files: [ 'loader.js' ],
-  destDir: '/tests'
+  destDir: testDir
 });
 
 var outputCJS = compileModules(libTreeES6, {
@@ -52,26 +55,26 @@ var outputMainAMD = concat(libTreeAMD, {
   outputFile: '/' + name + '.js'
 });
 
-var testIndex = pickFiles('tests', {
+var testIndex = pickFiles('.' + testDir, {
   srcDir: '/',
   files: ['index.html'],
-  destDir: '/tests/'
+  destDir: testDir
 });
 
-var testSetupES6 = pickFiles('tests/support', {
+var testSetupES6 = pickFiles('.' + testDir + '/support', {
   srcDir: '/',
   files: [ 'setup.js'],
-  destDir: '/tests/support'
+  destDir: testDir + '/support'
 });
 
 var testSetupCJS = compileModules(testSetupES6, {
   modules: 'common',
 });
 
-var testsTreeES6 = pickFiles('tests', {
+var testsTreeES6 = pickFiles('.' + testDir, {
   srcDir: '/',
-  files: ['**/*test.js'],
-  destDir: '/tests'
+  files: ['**/*' + testPostfix + '.js'],
+  destDir: testDir
 });
 
 var testsCJS = compileModules(testsTreeES6, {
@@ -99,7 +102,7 @@ var jshintLib = jshint(libTreeES6, {
 jshintLib = pickFiles(jshintLib, {
   srcDir: '/' + name,
   files: ['**/*'],
-  destDir: '/tests'
+  destDir: testDir
 });
 
 var jshintTests = jshint(testsTreeES6, {
@@ -107,8 +110,8 @@ var jshintTests = jshint(testsTreeES6, {
 });
 
 var webTests = concat(mergeTrees([jshintTests, jshintLib, testsTreeCJS]), {
-  inputFiles: ['**/*test.js', '**/*jshint.js'],
-  outputFile: '/tests/' + name + '-tests.js'
+  inputFiles: ['**/*' + testPostfix + '.js', '**/*jshint.js'],
+  outputFile: testDir + '/' + name + '-' + testsPostfix + '.js'
 });
 
 module.exports = mergeTrees([
