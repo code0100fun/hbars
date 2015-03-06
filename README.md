@@ -1,11 +1,11 @@
 # hbars
-[Try it now](http://code0100fun.com/hbars/)
+[Try it now](http://hbars.io/)
 
 ###Haml-like syntax for Ember HTMLBars templates.
 
 The goal is to keep the syntax as close to Haml as possible given the Ruby is replaced by HTMLBars helpers. The logic should pass through to HTMLBars with as little manipulation as possible also.
 
-[Documentation](http://code0100fun.com/hbars/)
+[Documentation](http://hbars.io/)
 
 ## Install
 
