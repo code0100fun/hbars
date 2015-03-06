@@ -15,13 +15,6 @@
   <body>
     <div id="mocha"></div>
     <script>
-      var moduleName, shouldLoad;
-      for (moduleName in requirejs.entries) {
-        shouldLoad = false;
-        if (moduleName.match(/[-_]test$/)) { shouldLoad = true; }
-        if (moduleName.match(/jshint/)) { shouldLoad = true; }
-        if (shouldLoad) { require(moduleName); }
-      }
       expect = chai.expect;
       assert = chai.assert;
       mocha.run()

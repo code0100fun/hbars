@@ -1,6 +1,6 @@
 /*jshint ignore: start*/
-import chai from 'chai';
+import { expect, assert } from 'chai';
 
-global.expect = chai.expect;
-global.assert = chai.assert;
+global.expect = expect;
+global.assert = assert;
 /*jshint ignore: end*/
