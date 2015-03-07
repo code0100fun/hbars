@@ -6,16 +6,15 @@
     "lib/**/*.pegjs",
     "tests/**/*.js"
   ],
+  "before_tests": "npm run build",
   "launchers": {
-    "node": {
-      "command": "npm run build  && ./bin/test",
+    "Mocha": {
+      "command": "./bin/test",
       "protocol": "tap"
     }
   },
-  "launch_in_ci": ["node", "PhantomJS"],
+  "launch_in_ci": ["Mocha"],
   "launch_in_dev": [
-    "node",
-    "PhantomJS",
-    "Chrome"
+    "Mocha"
   ]
 }

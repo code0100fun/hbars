@@ -8,15 +8,15 @@
     <script src="/testem.js"></script>
     <script src="loader.js"></script>
     <script>
-      mocha.setup('bdd')
+      define('chai', [], function() { return chai; });
+      mocha.setup('bdd');
     </script>
-    <script src="../hbars.js"></script></head>
-    <script src="hbars-tests.js"></script></head>
+    <script src="support/setup.js"></script>
+    <script src="../hbars.js"></script>
+    <script src="hbars-tests.js"></script>
   <body>
     <div id="mocha"></div>
     <script>
-      expect = chai.expect;
-      assert = chai.assert;
       mocha.run()
     </script>
   </body>
