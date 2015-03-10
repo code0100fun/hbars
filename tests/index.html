@@ -8,16 +8,27 @@
     <script src="/testem.js"></script>
     <script src="loader.js"></script>
     <script>
-      define('chai', [], function() { return chai; });
-      mocha.setup('bdd');
+      define.amd = {};
     </script>
     <script src="support/setup.js"></script>
+    <script>
+      define('chai', [], function() { return chai; });
+      mocha.setup('bdd');
+      require('tests/support/setup');
+    </script>
     <script src="../hbars.js"></script>
     <script src="hbars-tests.js"></script>
   <body>
     <div id="mocha"></div>
     <script>
-      mocha.run()
+      var moduleName, shouldLoad;
+      for (moduleName in requirejs.entries) {
+        shouldLoad = false;
+        if (moduleName.match(/[-_]test$/)) { shouldLoad = true; }
+        if (moduleName.match(/jshint/)) { shouldLoad = true; }
+        if (shouldLoad) { require(moduleName); }
+      }
+      mocha.run();
     </script>
   </body>
 </html>

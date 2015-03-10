@@ -32,8 +32,8 @@ var libTreeES6 = pickFiles(mergeTrees(['lib', pegFilesES6]), {
   destDir: '/' + name
 });
 
-var libTreeAMD = compileModules(libTreeES6, {
-  modules: 'amd',
+var libTreeUMD = compileModules(libTreeES6, {
+  modules: 'umd',
   moduleIds: true
 });
 
@@ -43,14 +43,15 @@ var loader = pickFiles(bower, {
   destDir: testDir
 });
 
-var outputCJS = compileModules(libTreeES6, {
-  modules: 'common',
+var outputUMD = compileModules(libTreeES6, {
+  modules: 'umd',
+  moduleIds: true,
   resolveModuleSource: function(path) {
     return path.replace(new RegExp('^' + name),'.');
   }
 });
 
-var outputMainAMD = concat(libTreeAMD, {
+var outputConcatUMD = concat(libTreeUMD, {
   inputFiles: [ '**/*.js' ],
   outputFile: '/' + name + '.js'
 });
@@ -67,8 +68,9 @@ var testSetupES6 = pickFiles('.' + testDir + '/support', {
   destDir: testDir + '/support'
 });
 
-var testSetupCJS = compileModules(testSetupES6, {
-  modules: 'common',
+var testSetupUMD = compileModules(testSetupES6, {
+  modules: 'umd',
+  moduleIds: true
 });
 
 var testsTreeES6 = pickFiles('.' + testDir, {
@@ -77,15 +79,12 @@ var testsTreeES6 = pickFiles('.' + testDir, {
   destDir: testDir
 });
 
-var testsCJS = compileModules(testsTreeES6, {
-  modules: 'common',
+var testsTreeUMD = compileModules(testsTreeES6, {
+  modules: 'umd',
+  moduleIds: true,
   resolveModuleSource: function(path) {
     return './../' + path;
   }
-});
-
-var testsTreeCJS = compileModules(testsTreeES6, {
-  modules: 'common'
 });
 
 var jshintMocha = function(relativePath, passed, errors) {
@@ -95,33 +94,37 @@ var jshintMocha = function(relativePath, passed, errors) {
   "});\n});";
 }
 
-var jshintLib = jshint(libTreeES6, {
+var jshintLibES6 = jshint(libTreeES6, {
   testGenerator: jshintMocha
 });
 
-jshintLib = pickFiles(jshintLib, {
+jshintLibES6 = pickFiles(jshintLibES6, {
   srcDir: '/' + name,
   files: ['**/*'],
   destDir: testDir
 });
 
-var jshintTests = jshint(testsTreeES6, {
+var jshintTestsES6 = jshint(testsTreeES6, {
   testGenerator: jshintMocha
 });
 
-var webTests = concat(mergeTrees([jshintTests, jshintLib, testsTreeCJS]), {
+var jshintTreeUMD = compileModules(mergeTrees([jshintTestsES6, jshintLibES6]), {
+  modules: 'umd',
+  moduleIds: true
+});
+
+var webTests = concat(mergeTrees([testsTreeUMD, jshintTreeUMD]), {
   inputFiles: ['**/*' + testPostfix + '.js', '**/*jshint.js'],
   outputFile: testDir + '/' + name + '-' + testsPostfix + '.js'
 });
 
 module.exports = mergeTrees([
-  outputMainAMD,
   loader,
+  outputConcatUMD,
+  outputUMD,
   testIndex,
-  testsCJS,
-  testSetupCJS,
-  outputCJS,
+  testSetupUMD,
   webTests,
-  jshintLib,
-  jshintTests,
+  testsTreeUMD,
+  jshintTreeUMD
 ]);
