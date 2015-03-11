@@ -1,12 +1,10 @@
 import { parse as preprocess } from 'hbars/preprocessor';
 import { parse as parser } from 'hbars/parser';
 
-var options = {};
-
 function parse(haml) {
   try {
-    var preprocessed = preprocess(haml, options);
-    return parser(preprocessed, options);
+    var preprocessed = preprocess(haml);
+    return parser(preprocessed);
   }catch(e){
    return e.message;
   }

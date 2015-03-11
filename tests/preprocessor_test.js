@@ -5,7 +5,7 @@ describe('preprocessor', function () {
   var options = {
     INDENT_CHAR: '>',
     DEDENT_CHAR: '<',
-    TERM_CHAR: '.',
+    TERM_CHAR: '.'
   };
 
   it('adds TERM char to last line', function () {

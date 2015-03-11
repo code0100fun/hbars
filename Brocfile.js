@@ -21,8 +21,10 @@ var pegFiles = pickFiles('lib', {
 
 var pegFilesES6 = peg(pegFiles, {
   wrapper: function(src, parser) {
-    return '/*jshint ignore: start*/\nexport default ' +
-      parser + '\n/*jshint ignore: end*/';
+    return '/*jshint ignore: start*/\n' +
+      'import util from "hbars/helpers";\n'+
+      'export default ' + parser +
+      '\n/*jshint ignore: end*/';
   }
 });
 
