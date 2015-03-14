@@ -1,7 +1,7 @@
 {
   "name": "hbars",
-  "version": "0.1.4",
-  "description": "Haml-like syntax transpiler for Ember HTMLBars templates",
+  "version": "0.1.6",
+  "description": "Haml-like syntax transpiler for HTMLBars templates",
   "repository": {
     "type": "git",
     "url": "https://github.com/code0100fun/hbars.git"
@@ -14,7 +14,7 @@
   "author": "Chase McCarthy",
   "license": "ISC",
   "devDependencies": {
-    "broccoli": "^0.13.3",
+    "broccoli": "^0.15.0",
     "broccoli-babel-transpiler": "^4.0.1",
     "broccoli-cli": "0.0.1",
     "broccoli-concat": "0.0.12",
