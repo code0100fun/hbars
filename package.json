@@ -7,7 +7,7 @@
     "url": "https://github.com/code0100fun/hbars.git"
   },
   "scripts": {
-    "build": "rm -rf dist/ tmp/ && $(which broccoli) build dist",
+    "build": "rm -rf dist/ tmp/ && ./node_modules/.bin/broccoli build dist",
     "test": "./node_modules/.bin/testem",
     "postinstall": "bower install && npm run build"
   },
@@ -16,6 +16,7 @@
   "devDependencies": {
     "broccoli": "^0.13.3",
     "broccoli-babel-transpiler": "^4.0.1",
+    "broccoli-cli": "0.0.1",
     "broccoli-concat": "0.0.12",
     "broccoli-jshint": "^0.5.3",
     "broccoli-merge-trees": "^0.2.1",
